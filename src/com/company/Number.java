@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Number {
     /**
      * The complement strategy is to flip the bits of its binary representation
@@ -127,5 +130,18 @@ public class Number {
         if(n<=0)
             return false;
         return (n&(-n)) == n;
+    }
+
+    /**
+     * Given a set of distinct positive integers, find the largest subset such that every pair (Si, Sj) of elements in this subset satisfies:
+     *
+     * Si % Sj = 0 or Sj % Si = 0.
+     *
+     * If there are multiple solutions, return any subset is fine.
+     * @param nums
+     * @return
+     */
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        Arrays.sort(nums);
     }
 }

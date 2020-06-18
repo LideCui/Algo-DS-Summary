@@ -140,5 +140,68 @@ public class PlayWithStrings {
         return target>nums[nums.length-1]?index+1:index;
     }
 
+    /**
+     * Write a function to check whether an input string is a valid IPv4 address or IPv6 address or neither.
+     * @param IP
+     * @return
+     */
+    public static String validIPAddress(String IP) {
+        int colon_count=0;
+        int dot_count=0;
+        boolean isIPv4 =false;
+        for(char c: IP.toCharArray()){
+            if(c=='.') dot_count++;
+            else if(c==':') colon_count++;
+        }
+        if(dot_count!=3 && colon_count!=7){
+            return "Neither";
+        }else if(dot_count==3){
+            isIPv4=true;
+        }
+
+        String delims = "[.:]+";
+        String[] tokens = IP.split(delims);
+
+        if(isIPv4){
+            if(tokens.length!=4){
+                return "Neither";
+            }
+            for(String tk: tokens){
+                if(tk.length()>3){
+                    return "Neither";
+                }
+                for(int i=0;i<tk.length();i++){
+                    if(tk.charAt(i)<'0' || tk.charAt(i)>'9'){
+                        return "Neither";
+                    }
+                }
+                int num = Integer.parseInt(tk);
+                if((tk.charAt(0)=='0' && tk.length()>1) || num>255){
+                    return  "Neither";
+                }
+            }
+        }else{
+            if(tokens.length!=8){
+                return "Neither";
+            }
+            for(String tk: tokens){
+                if(tk.length()>4){
+                    return "Neither";
+                }
+                for(int i=0;i<tk.length();i++){
+                    boolean isInvalidLetter=false;
+                    if(!(tk.charAt(i)>='a' && tk.charAt(i)<='f') && !(tk.charAt(i)>='A' && tk.charAt(i)<='F')
+                            && !(tk.charAt(i)>='0' && tk.charAt(i)<='9')){
+                        isInvalidLetter = true;
+                    }
+                    if(isInvalidLetter){
+                        return "Neither";
+                    }
+                }
+            }
+
+        }
+        return isIPv4?"IPv4":"IPv6";
+    }
 
 }
